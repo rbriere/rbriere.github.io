@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Observations</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body class="cobalt-body" onload="initObservationsPage()">
+
+    <header class="cobalt-header">
+        <h1>Observations</h1>
+    </header>
+
+    <section class="controls">
+        <div class="control-group">
+            <span class="control-label">Sort by:</span>
+            <label><input type="radio" name="sort" value="date_desc" checked> Date (current → past)</label>
+            <label><input type="radio" name="sort" value="date_asc"> Date (past → current)</label>
+            <label><input type="radio" name="sort" value="name"> Name</label>
+        </div>
+
+        <div class="control-group">
+            <span class="control-label">Filter:</span>
+            <input type="text" id="filterText" placeholder="Type to filter...">
+            <label><input type="radio" name="filterField" value="description_short" checked> Description</label>
+            <label><input type="radio" name="filterField" value="observation_location"> Location</label>
+            <label><input type="radio" name="filterField" value="observation_date"> Date</label>
+        </div>
+    </section>
+
+    <main id="grid" class="grid-container">
+        <!-- Thumbnails injected here -->
+    </main>
+
+    <footer class="cobalt-footer">
+        <span id="copyright"></span>
+    </footer>
+</body>
+</html>
