@@ -32,19 +32,19 @@ const OBSERVATION_FILES = [
 
 async function loadObservations() {
     const observations = [];
-    for (const file of OBSERVATION_FILES) {
-        try {
-            const res = await fetch(`observations/${file}`);
-            if (!res.ok) continue;
-            const data = await res.json();
-            data._file = file;
-            data._id = file.replace(/\.json$/i, "");
-            observations.push(data);
-        } catch (e) {
-            console.error("Error loading", file, e);
-        }
-    }
-    return observations;
+    // for (const file of OBSERVATION_FILES) {
+    //     try {
+    //         const res = await fetch(`observations/${file}`);
+    //         if (!res.ok) continue;
+    //         const data = await res.json();
+    //         data._file = file;
+    //         data._id = file.replace(/\.json$/i, "");
+    //         observations.push(data);
+    //     } catch (e) {
+    //         console.error("Error loading", file, e);
+    //     }
+    // }
+    // return observations;
 }
 
 // Dynamically load all JSON files from /observations
@@ -184,6 +184,9 @@ async function initObservationsPage() {
         initObservationsPage();
         document.getElementById("output").innerHTML = "starting";
         // const allObservations = await loadObservations();
+        for (const file of OBSERVATION_FILES) {
+            document.getElementById("output").innerHTML = document.getElementById("output").innerHTML + '${file}' + "<br>";
+        }
 // document.getElementById("output2").innerHTML =  "testing";
     </script>
 </body>
