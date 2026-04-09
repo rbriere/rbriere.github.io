@@ -113,7 +113,7 @@ async function loadObservations1() {
 async function initObservationsPage() {
     setCopyright();
 
-    const allObservations = await loadObservations();
+    // const allObservations = await loadObservations();
     // document.writeln("after loadObservations<br>");
     // document.writeln("size of loadObservations=" + loadObservations.length + "<br>");
 
@@ -179,7 +179,9 @@ async function initObservationsPage() {
 
     <script>
         initObservationsPage();
-document.getElementById("output").innerHTML = "testing";
+        document.getElementById("output").innerHTML = "starting";
+        const allObservations = await loadObservations();
+document.getElementById("output").innerHTML += "<br>testing";
     </script>
 </body>
 </html>
