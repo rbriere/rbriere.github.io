@@ -29,21 +29,30 @@ async function loadObservations() {
         // const res = await fetch("./observations/");
         // https://github.com/rbriere/rbriere.github.io/blob/main/astro/observations/20260318_M42_OrionNebula.json
         //repo_url = "https://github.com/<owner>/<repo>/tree/<branch>/<folder>"
-        repo_url = "https://github.com/rbriere/rbriere.github.io/astro/observations"
-        repo_url = "./";
+        // repo_url = "https://github.com/rbriere/rbriere.github.io/astro/observations"
+        // repo_url = "./";
+        // const res = await fetch(repo_url);
+        // const html = await res.text();
 
-             
-    
-              const res = await fetch(repo_url);
-        const html = await res.text();
+        // // Extract all .json filenames
+        // const matches = [...html.matchAll(/href="([^"]+\.json)"/g)];
+        // const files = matches.map(m => m[1]);
 
-        // Extract all .json filenames
-        const matches = [...html.matchAll(/href="([^"]+\.json)"/g)];
-        const files = matches.map(m => m[1]);
+        const response = await fetch("https://rbriere.github.io/astro/observations", {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json"
+    }
+});
 
-        document.writeln(files.length);
+const data = await response.json();
+
+
+        document.writeln(data.files.length);
+        // document.writeln(files.length);
+        // document.writeln(files.length);
         document.writeln("<br>");
-        console.log("files found=" + files.length);
+        // console.log("files found=" + files.length);
         // for (const file of files) {
         //     try {
         //         const jsonRes = await fetch(`./observations/${file}`);
