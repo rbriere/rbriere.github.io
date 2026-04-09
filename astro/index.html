@@ -9,14 +9,82 @@
 <body class="cobalt-body" onload="initObservationsPage()">
 
     <script>
+        // Static grid width
+const DISPLAYWIDTH = 3;
 
 // Utility: copyright
 function setCopyright() {
     const el = document.getElementById("copyright");
     if (el) {
-        el.textContent = `© RAB ${new Date().getFullYear()}`;
+        el.textContent = `© RAB2 ${new Date().getFullYear()}`;
     }
 }
+
+// Dynamically load all JSON files from /observations
+async function loadObservations() {
+    const observations = [];
+
+    try {
+        // Fetch directory listing
+        const res = await fetch("./observations/");
+        const html = await res.text();
+
+        // Extract all .json filenames
+        const matches = [...html.matchAll(/href="([^"]+\.json)"/g)];
+        const files = matches.map(m => m[1]);
+
+        for (const file of files) {
+            try {
+                const jsonRes = await fetch(`./observations/${file}`);
+                if (!jsonRes.ok) continue;
+
+                const data = await jsonRes.json();
+                data._file = file;
+                data._id = file.replace(/\.json$/i, "");
+                observations.push(data);
+            } catch (e) {
+                console.error("Error loading JSON:", file, e);
+            }
+        }
+    } catch (e) {
+        console.error("Unable to read /observations directory", e);
+    }
+
+    return observations;
+}
+
+
+// Initialize main grid page
+async function initObservationsPage() {
+    setCopyright();
+
+    // const allObservations = await loadObservations();
+
+    // const sortRadios = document.querySelectorAll('input[name="sort"]');
+    // const filterText = document.getElementById("filterText");
+    // const filterFieldRadios = document.querySelectorAll('input[name="filterField"]');
+
+    // function getSortMode() {
+    //     return document.querySelector('input[name="sort"]:checked').value;
+    // }
+
+    // function getFilterField() {
+    //     return document.querySelector('input[name="filterField"]:checked').value;
+    // }
+
+    // function refresh() {
+    //     let obs = sortObservations(allObservations, getSortMode());
+    //     obs = filterObservations(obs, filterText.value, getFilterField());
+    //     renderGrid(obs);
+    // }
+
+    // sortRadios.forEach(r => r.addEventListener("change", refresh));
+    // filterFieldRadios.forEach(r => r.addEventListener("change", refresh));
+    // filterText.addEventListener("input", refresh);
+
+    // refresh();
+}
+
 
     </script>
 
@@ -51,7 +119,8 @@ function setCopyright() {
     </footer>
 
     <script>
-        setCopyright();
+        initObservationsPage();
+
     </script>
 </body>
 </html>
