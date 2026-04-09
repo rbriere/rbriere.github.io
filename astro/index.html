@@ -115,6 +115,7 @@ async function initObservationsPage() {
 
     const allObservations = await loadObservations();
     document.writeln("after loadObservations<br>");
+    document.writeln("size of loadObservations=" + loadObservations.length + "<br>");
 
     // const sortRadios = document.querySelectorAll('input[name="sort"]');
     // const filterText = document.getElementById("filterText");
