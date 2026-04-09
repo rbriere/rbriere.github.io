@@ -7,7 +7,7 @@ async function loadObservations() {
 
     try {
         // Fetch directory listing
-        const res = await fetch("https://www.nanoc13.com/astro/observations/");
+        const res = await fetch("https://rbriere.github.io/astro/observations/");
         const html = await res.text();
 
         // Extract all .json filenames
@@ -16,7 +16,7 @@ async function loadObservations() {
 
         for (const file of files) {
             try {
-                const jsonRes = await fetch(`https://www.nanoc13.com/astro/observations/${file}`);
+                const jsonRes = await fetch(`https://rbriere.github.io/astro/observations/${file}`);
                 if (!jsonRes.ok) continue;
 
                 const data = await jsonRes.json();
