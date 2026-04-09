@@ -26,7 +26,14 @@ async function loadObservations() {
 
     try {
         // Fetch directory listing
-        const res = await fetch("./observations/");
+        // const res = await fetch("./observations/");
+        // https://github.com/rbriere/rbriere.github.io/blob/main/astro/observations/20260318_M42_OrionNebula.json
+        //repo_url = "https://github.com/<owner>/<repo>/tree/<branch>/<folder>"
+        repo_url = "https://github.com/rbriere/rbriere.github.io/astro/observations"
+
+             
+    
+              const res = await fetch(repo_url);
         const html = await res.text();
 
         // Extract all .json filenames
@@ -34,6 +41,7 @@ async function loadObservations() {
         const files = matches.map(m => m[1]);
 
         document.writeln(files.length);
+        document.writeln("<br>");
         // for (const file of files) {
         //     try {
         //         const jsonRes = await fetch(`./observations/${file}`);
