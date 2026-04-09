@@ -38,17 +38,25 @@ async function loadObservations() {
         // const matches = [...html.matchAll(/href="([^"]+\.json)"/g)];
         // const files = matches.map(m => m[1]);
 
-        const response = await fetch("https://rbriere.github.io/astro", {
-    method: "GET",
-    headers: {
-        "Content-Type": "application/json"
-    }
-});
+//         const response = await fetch("https://rbriere.github.io/astro", {
+//     method: "GET",
+//     headers: {
+//         "Content-Type": "application/json"
+//     }
+// });
 
-const data = await response.json();
+// const data = await response.json();
 
+ const jsonUrl = 'https://rbriere.github.io/astro/20260323_M45_Pleiades.json';
 
-        document.writeln(data.files.length);
+        fetch(jsonUrl)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('json-data').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => console.error('Error fetching JSON:', error));
+
+        // document.writeln(data.files.length);
         // document.writeln(files.length);
         // document.writeln(files.length);
         document.writeln("<br>");
