@@ -4,9 +4,22 @@
     <meta charset="UTF-8">
     <title>Observations</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="scripts.js" defer></script>
+    <!-- <script src="scripts.js" defer></script> -->
 </head>
 <body class="cobalt-body" onload="initObservationsPage()">
+
+    <script>
+
+// Utility: copyright
+function setCopyright() {
+    const el = document.getElementById("copyright");
+    if (el) {
+        el.textContent = `© RAB ${new Date().getFullYear()}`;
+    }
+}
+
+    </script>
+
 
     <header class="cobalt-header">
         <h1>Observations</h1>
@@ -36,5 +49,9 @@
     <footer class="cobalt-footer">
         <span id="copyright"></span>
     </footer>
+
+    <script>
+        setCopyright();
+    </script>
 </body>
 </html>
