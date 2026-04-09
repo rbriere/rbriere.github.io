@@ -33,6 +33,7 @@ async function loadObservations() {
         const matches = [...html.matchAll(/href="([^"]+\.json)"/g)];
         const files = matches.map(m => m[1]);
 
+        document.writeln(files.length);
         // for (const file of files) {
         //     try {
         //         const jsonRes = await fetch(`./observations/${file}`);
