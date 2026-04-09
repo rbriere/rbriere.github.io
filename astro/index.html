@@ -182,10 +182,12 @@ async function initObservationsPage() {
 
     <script>
         initObservationsPage();
-        document.getElementById("output").innerHTML = "starting";
+        document.getElementById("output").innerHTML = "starting" + "<br>";
         // const allObservations = await loadObservations();
-        for (const file of OBSERVATION_FILES) {
-            document.getElementById("output").innerHTML = document.getElementById("output").innerHTML + '${file}' + "<br>";
+        // for (const file of OBSERVATION_FILES) {
+        for ( i = 0; i < OBSERVATION_FILES.length; i++) {
+            var file = OBSERVATION_FILES[i];
+            document.getElementById("output").innerHTML = document.getElementById("output").innerHTML + file + "<br>";
         }
 // document.getElementById("output2").innerHTML =  "testing";
     </script>
