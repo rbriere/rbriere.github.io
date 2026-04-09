@@ -16,7 +16,7 @@ const DISPLAYWIDTH = 3;
 function setCopyright() {
     const el = document.getElementById("copyright");
     if (el) {
-        el.textContent = `© RAB2 ${new Date().getFullYear()}`;
+        el.textContent = `© RAB22 ${new Date().getFullYear()}`;
     }
 }
 
@@ -33,19 +33,19 @@ async function loadObservations() {
         const matches = [...html.matchAll(/href="([^"]+\.json)"/g)];
         const files = matches.map(m => m[1]);
 
-        for (const file of files) {
-            try {
-                const jsonRes = await fetch(`./observations/${file}`);
-                if (!jsonRes.ok) continue;
+        // for (const file of files) {
+        //     try {
+        //         const jsonRes = await fetch(`./observations/${file}`);
+        //         if (!jsonRes.ok) continue;
 
-                const data = await jsonRes.json();
-                data._file = file;
-                data._id = file.replace(/\.json$/i, "");
-                observations.push(data);
-            } catch (e) {
-                console.error("Error loading JSON:", file, e);
-            }
-        }
+        //         const data = await jsonRes.json();
+        //         data._file = file;
+        //         data._id = file.replace(/\.json$/i, "");
+        //         observations.push(data);
+        //     } catch (e) {
+        //         console.error("Error loading JSON:", file, e);
+        //     }
+        // }
     } catch (e) {
         console.error("Unable to read /observations directory", e);
     }
@@ -58,7 +58,8 @@ async function loadObservations() {
 async function initObservationsPage() {
     setCopyright();
 
-    // const allObservations = await loadObservations();
+    const allObservations = await loadObservations();
+    document.writeln("after loadObservations<br>");
 
     // const sortRadios = document.querySelectorAll('input[name="sort"]');
     // const filterText = document.getElementById("filterText");
