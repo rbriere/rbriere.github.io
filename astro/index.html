@@ -20,8 +20,35 @@ function setCopyright() {
     }
 }
 
-// Dynamically load all JSON files from /observations
+
+
+// List of JSON files in /observations
+const OBSERVATION_FILES = [
+    "20260318_M42_OrionNebula.json",
+    "20260323_Lunar_221225.json",
+    "20260323_M45_Pleiades.json",
+    "20260404_m66.json"
+];
+
 async function loadObservations() {
+    const observations = [];
+    for (const file of OBSERVATION_FILES) {
+        try {
+            const res = await fetch(`observations/${file}`);
+            if (!res.ok) continue;
+            const data = await res.json();
+            data._file = file;
+            data._id = file.replace(/\.json$/i, "");
+            observations.push(data);
+        } catch (e) {
+            console.error("Error loading", file, e);
+        }
+    }
+    return observations;
+}
+
+// Dynamically load all JSON files from /observations
+async function loadObservations1() {
     const observations = [];
 
     try {
