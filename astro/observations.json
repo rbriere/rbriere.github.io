@@ -1,0 +1,34 @@
+[
+  {
+    "description_short": "Orion Nebula",
+    "description_full": "Messier 42 is a diffuse nebula in the Milky Way situated south of Orion's Belt in the constellation of Orion,[b] and is known as the middle 'star' in the 'sword' of Orion. It is 1,267.0 ± 5.4 light-years (388.5 ± 1.7 pc) away. M42 is estimated to be 25 light-years across.",
+    "thumbnail_image": "20260318_M42_OrionNebula_tn.jpg",
+    "actual_image": "20260318_M42_OrionNebula.jpg",
+    "observation_date": "20260318",
+    "observation_location": "The Villages"
+  },
+  {
+    "description_short": "Lunar - The Moon",
+    "description_full": "The Moon!",
+    "thumbnail_image": "20260323_Lunar_221225_tn.jpg",
+    "actual_image": "20260323_Lunar_221225.jpg",
+    "observation_date": "20260323",
+    "observation_location": "The Villages"
+  },
+  {
+    "description_short": "The Pleiades",
+    "description_full": "The Pleiades, also known as Seven Sisters and Messier 45 (M45), is an open star cluster containing young B-type stars in the constellation Taurus.",
+    "thumbnail_image": "20260323_M45_Pleiades_tn.jpg",
+    "actual_image": "20260323_M45_Pleiades.jpg",
+    "observation_date": "20260323",
+    "observation_location": "The Villages"
+  },
+  {
+    "description_short": "M66 - The Leo Triplet",
+    "description_full": "The Leo Triplet (also known as the M66 Group) is a small group of galaxies about 35 million light-years away in the constellation Leo.",
+    "thumbnail_image": "20260404_m66_tn.jpg",
+    "actual_image": "20260404_m66.jpg",
+    "observation_date": "20260404",
+    "observation_location": "The Villages"
+  }
+]

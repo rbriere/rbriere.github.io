@@ -1,102 +1,81 @@
-// Static grid width
+// Grid width
 const DISPLAYWIDTH = 3;
 
-// Dynamically load all JSON files from /observations
+// Load observations.json
 async function loadObservations() {
-    const observations = [];
-
     try {
-        // Fetch directory listing
-        const res = await fetch("https://rbriere.github.io/astro/observations/");
-        const html = await res.text();
-
-        // Extract all .json filenames
-        const matches = [...html.matchAll(/href="([^"]+\.json)"/g)];
-        const files = matches.map(m => m[1]);
-
-        for (const file of files) {
-            try {
-                const jsonRes = await fetch(`https://rbriere.github.io/astro/observations/${file}`);
-                if (!jsonRes.ok) continue;
-
-                const data = await jsonRes.json();
-                data._file = file;
-                data._id = file.replace(/\.json$/i, "");
-                observations.push(data);
-            } catch (e) {
-                console.error("Error loading JSON:", file, e);
-            }
-        }
+        const res = await fetch("observations.json");
+        const data = await res.json();
+        return data.map((o, index) => ({ ...o, _id: index }));
     } catch (e) {
-        console.error("Unable to read /observations directory", e);
+        console.error("Error loading observations.json", e);
+        return [];
     }
-
-    return observations;
 }
 
-// Sorting helpers
+// Utility: query param
+function getQueryParam(name) {
+    return new URLSearchParams(window.location.search).get(name);
+}
+
+// Utility: copyright
+function setCopyright() {
+    const el = document.getElementById("copyright");
+    if (el) {
+        el.textContent = `© RAB ${new Date().getFullYear()}`;
+    }
+}
+
+// Sorting
 function sortObservations(observations, mode) {
     const obs = [...observations];
 
     if (mode === "name") {
         obs.sort((a, b) =>
-            (a.description_short || "").localeCompare(
-                b.description_short || "",
-                undefined,
-                { sensitivity: "base" }
-            )
+            a.description_short.localeCompare(b.description_short)
         );
     } else if (mode === "date_asc") {
         obs.sort((a, b) =>
-            new Date(a.observation_date) - new Date(b.observation_date)
+            a.observation_date.localeCompare(b.observation_date)
         );
     } else {
-        // Default: date_desc
         obs.sort((a, b) =>
-            new Date(b.observation_date) - new Date(a.observation_date)
+            b.observation_date.localeCompare(a.observation_date)
         );
     }
 
     return obs;
 }
 
-// Filtering helper
+// Filtering
 function filterObservations(observations, text, field) {
     const q = text.trim().toLowerCase();
     if (!q) return observations;
 
-    return observations.filter(o => {
-        const val = (o[field] || "").toString().toLowerCase();
-        return val.includes(q);
-    });
+    return observations.filter(o =>
+        (o[field] || "").toLowerCase().includes(q)
+    );
 }
 
 // Render grid
 function renderGrid(observations) {
     const grid = document.getElementById("grid");
-    if (!grid) return;
-
     grid.style.gridTemplateColumns = `repeat(${DISPLAYWIDTH}, 1fr)`;
     grid.innerHTML = "";
 
     observations.forEach(obs => {
-        const id = obs._id;
-        const thumb = obs.thumbnail_image
-            ? `thumbnails/${obs.thumbnail_image}`
-            : `thumbnails/${id}_tn.jpg`;
-
         const item = document.createElement("div");
         item.className = "grid-item";
 
         const img = document.createElement("img");
-        img.src = thumb;
-        img.alt = obs.description_short || "";
+        img.src = `thumbnails/${obs.thumbnail_image}`;
+        img.alt = obs.description_short;
         img.addEventListener("click", () => {
-            window.location.href = `observation.html?file=${encodeURIComponent(obs._file)}`;
+            window.open(`observation.html?id=${obs._id}`, "_blank");
         });
 
         const caption = document.createElement("p");
-        caption.textContent = obs.description_short || "";
+        caption.textContent = obs.description_short;
 
         item.appendChild(img);
         item.appendChild(caption);
@@ -104,7 +83,7 @@ function renderGrid(observations) {
     });
 }
 
-// Initialize main grid page
+// Init main page
 async function initObservationsPage() {
     setCopyright();
 
@@ -135,49 +114,23 @@ async function initObservationsPage() {
     refresh();
 }
 
-// Initialize detail page
+// Init detail page
 async function initObservationDetailPage() {
     setCopyright();
 
-    const file = getQueryParam("file");
-    if (!file) return;
+    const id = parseInt(getQueryParam("id"), 10);
+    if (isNaN(id)) return;
 
-    let data;
-    try {
-        const res = await fetch(`observations/${file}`);
-        if (!res.ok) return;
-        data = await res.json();
-    } catch (e) {
-        console.error("Error loading detail JSON", e);
-        return;
-    }
+    const observations = await loadObservations();
+    const obs = observations.find(o => o._id === id);
+    if (!obs) return;
 
-    const id = file.replace(/\.json$/i, "");
-    const imgPath = data.actual_image
-        ? `images/${data.actual_image}`
-        : `images/${id}.jpg`;
+    document.getElementById("detailImageWrapper").innerHTML =
+        `<img src="images/${obs.actual_image}" alt="${obs.description_short}">`;
 
-    const imgWrapper = document.getElementById("detailImageWrapper");
-    const table = document.getElementById("detailTable");
-
-    imgWrapper.innerHTML = `<img src="${imgPath}" alt="${data.description_short}">`;
-
-    table.innerHTML = `
-        <tr><th>Description</th><td>${data.description_full}</td></tr>
-        <tr><th>Date</th><td>${data.observation_date}</td></tr>
-        <tr><th>Location</th><td>${data.observation_location}</td></tr>
+    document.getElementById("detailTable").innerHTML = `
+        <tr><th>Description</th><td>${obs.description_full}</td></tr>
+        <tr><th>Date</th><td>${obs.observation_date}</td></tr>
+        <tr><th>Location</th><td>${obs.observation_location}</td></tr>
     `;
-}
-
-// Utility: get query parameter
-function getQueryParam(name) {
-    return new URLSearchParams(window.location.search).get(name);
-}
-
-// Utility: copyright
-function setCopyright() {
-    const el = document.getElementById("copyright");
-    if (el) {
-        el.textContent = `© RAB ${new Date().getFullYear()}`;
-    }
 }

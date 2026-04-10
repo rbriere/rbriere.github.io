@@ -2,152 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<meta http-equiv="Pragma" content="no-cache">
-
     <title>Observations</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- <script src="scripts.js" defer></script> -->
+    <script src="scripts.js" defer></script>
 </head>
 <body class="cobalt-body" onload="initObservationsPage()">
-
-    <script>
-        // Static grid width
-const DISPLAYWIDTH = 3;
-
-// Utility: copyright
-function setCopyright() {
-    const el = document.getElementById("copyright");
-    if (el) {
-        el.textContent = `© RAB22 ${new Date().getFullYear()}`;
-    }
-}
-
-
-
-// List of JSON files in /observations
-const OBSERVATION_FILES = [
-    "20260318_M42_OrionNebula.json",
-    "20260323_Lunar_221225.json",
-    "20260323_M45_Pleiades.json",
-    "20260404_m66.json"
-];
-
-async function loadObservations() {
-    const observations = [];
-    // for (const file of OBSERVATION_FILES) {
-    //     try {
-    //         const res = await fetch(`observations/${file}`);
-    //         if (!res.ok) continue;
-    //         const data = await res.json();
-    //         data._file = file;
-    //         data._id = file.replace(/\.json$/i, "");
-    //         observations.push(data);
-    //     } catch (e) {
-    //         console.error("Error loading", file, e);
-    //     }
-    // }
-    // return observations;
-}
-
-// Dynamically load all JSON files from /observations
-async function loadObservations1() {
-    const observations = [];
-
-    try {
-        // Fetch directory listing
-        // const res = await fetch("./observations/");
-        // https://github.com/rbriere/rbriere.github.io/blob/main/astro/observations/20260318_M42_OrionNebula.json
-        //repo_url = "https://github.com/<owner>/<repo>/tree/<branch>/<folder>"
-        // repo_url = "https://github.com/rbriere/rbriere.github.io/astro/observations"
-        // repo_url = "./";
-        // const res = await fetch(repo_url);
-        // const html = await res.text();
-
-        // // Extract all .json filenames
-        // const matches = [...html.matchAll(/href="([^"]+\.json)"/g)];
-        // const files = matches.map(m => m[1]);
-
-//         const response = await fetch("https://rbriere.github.io/astro", {
-//     method: "GET",
-//     headers: {
-//         "Content-Type": "application/json"
-//     }
-// });
-
-// const data = await response.json();
-
- const jsonUrl = 'https://rbriere.github.io/astro/20260323_M45_Pleiades.json';
-
-        fetch(jsonUrl)
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('json-data').textContent = JSON.stringify(data, null, 2);
-            })
-            .catch(error => console.error('Error fetching JSON:', error));
-
-        // document.writeln(data.files.length);
-        // document.writeln(files.length);
-        // document.writeln(files.length);
-        document.writeln("<br>");
-        // console.log("files found=" + files.length);
-        // for (const file of files) {
-        //     try {
-        //         const jsonRes = await fetch(`./observations/${file}`);
-        //         if (!jsonRes.ok) continue;
-
-        //         const data = await jsonRes.json();
-        //         data._file = file;
-        //         data._id = file.replace(/\.json$/i, "");
-        //         observations.push(data);
-        //     } catch (e) {
-        //         console.error("Error loading JSON:", file, e);
-        //     }
-        // }
-    } catch (e) {
-        console.error("Unable to read /observations directory", e);
-    }
-
-    return observations;
-}
-
-
-// Initialize main grid page
-async function initObservationsPage() {
-    setCopyright();
-
-    // const allObservations = await loadObservations();
-    // document.writeln("after loadObservations<br>");
-    // document.writeln("size of loadObservations=" + loadObservations.length + "<br>");
-
-    // const sortRadios = document.querySelectorAll('input[name="sort"]');
-    // const filterText = document.getElementById("filterText");
-    // const filterFieldRadios = document.querySelectorAll('input[name="filterField"]');
-
-    // function getSortMode() {
-    //     return document.querySelector('input[name="sort"]:checked').value;
-    // }
-
-    // function getFilterField() {
-    //     return document.querySelector('input[name="filterField"]:checked').value;
-    // }
-
-    // function refresh() {
-    //     let obs = sortObservations(allObservations, getSortMode());
-    //     obs = filterObservations(obs, filterText.value, getFilterField());
-    //     renderGrid(obs);
-    // }
-
-    // sortRadios.forEach(r => r.addEventListener("change", refresh));
-    // filterFieldRadios.forEach(r => r.addEventListener("change", refresh));
-    // filterText.addEventListener("input", refresh);
-
-    // refresh();
-}
-
-
-    </script>
-
-
     <header class="cobalt-header">
         <h1>Observations</h1>
     </header>
@@ -170,28 +29,11 @@ async function initObservationsPage() {
     </section>
 
     <main id="grid" class="grid-container">
-        <!-- Thumbnails injected here -->
+        <!-- Thumbnails injected by scripts.js -->
     </main>
-
-     <pre id="output" ></pre>
-     <br>
-     <pre id="output2" ></pre>
-
 
     <footer class="cobalt-footer">
         <span id="copyright"></span>
     </footer>
-
-    <script>
-        initObservationsPage();
-        document.getElementById("output").innerHTML = "starting" + "<br>";
-        // const allObservations = await loadObservations();
-        // for (const file of OBSERVATION_FILES) {
-        for ( i = 0; i < OBSERVATION_FILES.length; i++) {
-            var file = OBSERVATION_FILES[i];
-            document.getElementById("output").innerHTML = document.getElementById("output").innerHTML + file + "<br>";
-        }
-// document.getElementById("output2").innerHTML =  "testing";
-    </script>
 </body>
 </html>
