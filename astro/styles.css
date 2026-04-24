@@ -144,7 +144,7 @@ body.cobalt-body {
     padding: 10px 24px;
     background-color: var(--cobalt-panel);
     border-top: 1px solid var(--cobalt-border);
-    text-align: right;
+    text-align: center;
     font-size: 0.85rem;
     color: var(--cobalt-muted);
 }

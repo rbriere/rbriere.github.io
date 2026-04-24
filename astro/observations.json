@@ -8,6 +8,22 @@
     "observation_location": "The Villages"
   },
   {
+    "description_short": "Messier 96",
+    "description_full": "Messier 96 is a double-barred spiral galaxy with a small inner bulge through the core along with an outer bulge.  It is about 31 ± 3 Mly away.",
+    "thumbnail_image": "20260322_m096_ngc3368_01_tn.jpg",
+    "actual_image": "20260322_m096_ngc3368_01.jpg",
+    "observation_date": "20260322",
+    "observation_location": "The Villages"
+  },
+  {
+    "description_short": "Messier 84 (NGC 4374)",
+    "description_full": "Messier 84 or NGC 4374  is a giant elliptical or lenticular galaxy in the constellation Virgo.  It is about 54.9 Mly away.",
+    "thumbnail_image": "20260322_m84_tn.jpg",
+    "actual_image": "20260322_m84.jpg",
+    "observation_date": "20260322",
+    "observation_location": "The Villages"
+  },
+  {
     "description_short": "Lunar - The Moon",
     "description_full": "The Moon!",
     "thumbnail_image": "20260323_Lunar_221225_tn.jpg",
