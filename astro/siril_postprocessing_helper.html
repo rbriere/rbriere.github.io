@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <script src="astro_rab_scripts.js?version=1.0.0" defer></script>
+<title>Siril Post Processing Helper</title>
+
+<style>
+    :root {
+    --cobalt-bg: #193549;
+    --cobalt-panel: #122738;
+    --cobalt-accent: #ffc600;
+    --cobalt-text: #e1efff;
+    --cobalt-muted: #7a8c9e;
+    --cobalt-border: #0b1c2c;
+}
+
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #193549; 
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    /* align-items: center; */
+    padding: 20px;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+
+.bodytext {
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--cobalt-border);
+    background-color: #0b1c2c;
+    color: var(--cobalt-text);
+}
+
+/* 
+body {
+    margin: 0;
+    padding: 20px;
+    background-color: #193549;
+    color: #ffffff;
+      align-items: center;
+    font-family: "Segoe UI", Arial, sans-serif;
+} */
+
+/* 
+body.cobalt-body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: var(--cobalt-bg);
+    color: var(--cobalt-text);
+} */
+
+/* .cobalt-header {
+    background-color: var(--cobalt-panel);
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--cobalt-border);
+}
+*/
+.cobalt-header h1 {
+    margin: 0;
+    align-items: left;
+    color: var(--cobalt-accent);
+} 
+.cobalt-footer {
+    padding: 10px 24px;
+    background-color: var(--cobalt-panel);
+    border-top: 1px solid var(--cobalt-border);
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--cobalt-muted);
+}
+
+pre {
+    width: 75%;
+    min-height: 500px;
+    background: #1f4662;
+    color: #ffffff;
+    border: 1px solid #0088ff;
+    border-radius: 8px;
+    padding: 20px;
+    overflow: auto;
+    white-space: pre-wrap;
+    box-sizing: border-box;
+}
+
+pre2 {
+    width: 80%;
+    min-height: 500px;
+    background: #1f4662;
+    color: #ffffff;
+    border: 1px solid #0088ff;
+    border-radius: 8px;
+    padding: 20px;
+    overflow: auto;
+    white-space: pre-wrap;
+    box-sizing: border-box;
+}
+
+
+button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: #0088ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.where-to-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.where-to-dropdown {
+    width: 300px;
+    padding: 10px 12px;
+    background-color: #0d3a58;
+    color: #ffffff;
+    border: 1px solid #2b5677;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.where-to-dropdown:hover {
+    border-color: #ffc600;
+}
+
+.where-to-dropdown:focus {
+    border-color: #ffc600;
+    box-shadow: 0 0 0 3px rgba(255, 198, 0, 0.25);
+}
+
+.where-to-dropdown option {
+    background-color: #193549;
+    color: #ffffff;
+}
+
+
+
+</style>
+</head>
+<body>
+
+    <header class="cobalt-header">
+        <h1>Siril Post Processing Helper</h1>
+    </header>
+
+    <div class="where-to-container">
+    <select id="resourceDropdown" class="where-to-dropdown">
+        <option value="">-- Select a destination --</option>
+    </select>
+    </div>
+
+
+<div class="bodytext">
+This C program will create a new folder for your Siril processing with the required four sub folders, as well as a script to assist with copying the *.fit files to the ./lights folder.  
+<p></p>Notes on compilation and usage are included in the top portion of the source code.
+
+</div>
+<pre2 id="programDisplay" class="pre2">File not loaded.</pre2>
+
+    <footer class="cobalt-footer">
+        <span id="copyright"></span>
+    </footer>
+
+<script>
+    
+    const el = document.getElementById("copyright");
+    if (el) {
+        el.textContent = `© ${new Date().getFullYear()} RAB`;
+    }
+
+async function loadProgram() {
+    const display = document.getElementById('programDisplay');
+
+    try {
+        const response = await fetch('./sirilprogramhelper.c');
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const text = await response.text();
+        display.textContent = text;
+    }
+    catch (err) {
+        display.textContent =
+            'Unable to load specified file.\n\n' +
+            'Make sure:\n' +
+            '1. the specified file is in the same folder as this HTML file.\n' +
+            '2. The page is served from a web server.\n\n' +
+            'Error: ' + err.message;
+    }
+}
+
+loadProgram();
+
+
+async function loadResourcesWhereTo() {
+    const dropdown = document.getElementById('resourceDropdown');
+
+    try {
+        const response = await fetch('./other_resources.json');
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const resources = await response.json();
+
+        resources.sort((a, b) =>
+            a.title.localeCompare(b.title)
+        );
+
+        dropdown.innerHTML =
+            '<option value="">-- Select a destination --</option>';
+
+        resources.forEach(resource => {
+            const option = document.createElement('option');
+            option.value = resource.url;
+            option.textContent = resource.title;
+            dropdown.appendChild(option);
+        });
+
+    } catch (error) {
+        dropdown.innerHTML =
+            '<option value="">Unable to load resources</option>';
+    }
+}
+
+document.getElementById('resourceDropdown')
+    .addEventListener('change', function() {
+
+        const url = this.value;
+
+        if (url) {
+            window.location.href = url;
+        }
+    });
+loadResourcesWhereTo();
+
+    // const el = document.getElementById("copyright");
+    // if (el) {
+    //     el.textContent = `© ${new Date().getFullYear()} RAB22`;
+    // }
+
+</script>
+
+</body>
+</html>

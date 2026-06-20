@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Observation Detail</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="scripts.js" defer></script>
+    <link rel="stylesheet" href="astro_rab_styles.css">
+    <script src="astro_rab_scripts.js" defer></script>
+     <script src="astro_rab_scripts_where2.js" defer></script>
 </head>
 <body class="cobalt-body" onload="initObservationDetailPage()">
-    
+    <div class="where-to-container">
+        <select id="resourceDropdown" class="where-to-dropdown">
+            <option value="">-- Select a destination --</option>
+        </select>
+    </div>
     <header class="cobalt-header">
         <h1>Observation Detail</h1>
     </header>
@@ -20,12 +25,66 @@
             <!-- Detail rows injected here -->
         </table>
         <div class="back-link">
-            <a href="index.html">← Back to Observations</a>
+            <a href="observations.html">← Back to Observations</a>
         </div>
     </main>
 
     <footer class="cobalt-footer">
         <span id="copyright"></span>
     </footer>
+
+    <script>
+
+async function loadResourcesWhereTo() {
+    // alert("here");
+    const dropdown = document.getElementById('resourceDropdown');
+    // const status = document.getElementById('status');
+
+    try {
+        const response = await fetch('./other_resources.json');
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const resources = await response.json();
+
+        resources.sort((a, b) =>
+            a.title.localeCompare(b.title)
+        );
+
+        dropdown.innerHTML =
+            '<option value="">-- Select a destination --</option>';
+
+        resources.forEach(resource => {
+            const option = document.createElement('option');
+            option.value = resource.url;
+            option.textContent = resource.title;
+            dropdown.appendChild(option);
+        });
+
+        // status.textContent =
+        //     `${resources.length} destinations loaded.`;
+
+    } catch (error) {
+        dropdown.innerHTML =
+            '<option value="">Unable to load resources</option>';
+
+        // status.textContent =
+        //     'Error loading other_resources.json';
+    }
+}
+
+document.getElementById('resourceDropdown')
+    .addEventListener('change', function() {
+
+        const url = this.value;
+
+        if (url) {
+            window.location.href = url;
+        }
+    });
+        loadResourcesWhereTo();
+</script>
 </body>
 </html>

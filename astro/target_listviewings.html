@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astrophotography Viewing List</title>
+
+    <link rel="stylesheet" href="astro_rab_styles.css?version=1.0.0">
+     <script src="astro_rab_scripts_where2.js?version=1.0.0" defer></script>
+     <style>
+
+        pre2 {
+    width: 50%;
+    min-height: 500px;
+    background: #1f4662;
+    color: #ffffff;
+    border: 1px solid #0088ff;
+    border-radius: 8px;
+    padding: 20px;
+    overflow: auto;
+    white-space: pre-wrap;
+    box-sizing: border-box;
+}
+     </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Astrophotography Viewing List</h1>
+            <div class="where-to-container">
+    <select id="resourceDropdown" class="where-to-dropdown">
+        <option value="">-- Select a destination --</option>
+    </select>
+    </div>
+
+        <div class="upload-section">
+            <input type="file"
+                   id="jsonFile"
+                   accept=".json"
+                   hidden>
+
+            <button id="uploadButton">
+                Upload JSON viewing data
+            </button>
+        </div>
+
+             
+        <div class="filter-section">
+            <label class="filter-label">Filter:</label>
+
+            <label>
+                <input type="checkbox" class="directionFilter" value="East" checked>
+                East
+            </label>
+
+            <label>
+                <input type="checkbox" class="directionFilter" value="North" checked>
+                North
+            </label>
+
+            <label>
+                <input type="checkbox" class="directionFilter" value="South" checked>
+                South
+            </label>
+            
+            <label>
+                <input type="checkbox" class="directionFilter" value="West" checked>
+                West
+            </label>
+
+        </div>
+
+        <div class="grid-container">
+            <table id="viewingTable">
+                <thead>
+                    <tr>
+                        <th data-sort="CardinalDirection">
+                            Cardinal Direction ▲▼
+                        </th>
+                        <th data-sort="Rank">
+                            Rank ▲▼
+                        </th>
+                        <th>Target</th>
+                        <th>General Direction</th>
+                        <th>Constellation</th>
+                        <th>Distance (Million LY)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- <pre id="howtousenotes" class="pre_howtouse"> -->
+    <pre id="howtousenotes" class="pre2">
+Use an AI prompt such as listed below to create, and then save a JSON file that you can supply to this page via the ‘upload JSON viewing data’ button.
+
+Be sure to change the date, viewing location, and your equipment.
+
+Prompt:
+List the 5 best galaxies, in each general direction (North, East, West, South) that are large and produce very photogenic 
+astrophotography photos that are visible from 9pm to 2am on 6/14/2026 from Fruitland Park, FL that are above the horizon so 
+they won't be blocked by houses and trees.  I'll be using a Seestar S30 Pro camera with an equatorial mount.
+
+Include the cardinal direction, the general direction of each target, the constellation, the approximate distance, and the 
+Messier designation (if one), and the NGC designation.
+
+Produce the result in one JSON file that contains a 'Rank' for each cardinal direction in the order of best target first.  No images are necessary. 
+
+The JSON file should be a collection of entities like:
+{
+    "Rank": 1,
+    "Target": "Bode's Galaxy",
+    "CardinalDirection": "North",
+    "GeneralDirection": "North",
+    "Constellation": "Ursa Major",
+    "DistanceLY": 12000000,
+    "Messier": "M81",
+    "NGC": "NGC 3031"
+}
+Produce the list without any sub entities like '"South":'
+
+Example results (reduced set of targets, you do not have to 
+supply this when making the prompt):
+[
+  {
+    "Rank": 1,
+    "Target": "Bode's Galaxy",
+    "CardinalDirection": "North",
+    "GeneralDirection": "North-Northwest",
+    "Constellation": "Ursa Major",
+    "DistanceLY": 12000000,
+    "Messier": "M81",
+    "NGC": "NGC 3031"
+  },
+  {
+    "Rank": 2,
+    "Target": "Cigar Galaxy",
+    "CardinalDirection": "North",
+    "GeneralDirection": "North-Northwest",
+    "Constellation": "Ursa Major",
+    "DistanceLY": 12000000,
+    "Messier": "M82",
+    "NGC": "NGC 3034"
+  },
+  {
+    "Rank": 1,
+    "Target": "Andromeda Galaxy",
+    "CardinalDirection": "East",
+    "GeneralDirection": "Northeast",
+    "Constellation": "Andromeda",
+    "DistanceLY": 2537000,
+    "Messier": "M31",
+    "NGC": "NGC 224"
+  },
+  {
+    "Rank": 1,
+    "Target": "Black Eye Galaxy",
+    "CardinalDirection": "West",
+    "GeneralDirection": "West",
+    "Constellation": "Coma Berenices",
+    "DistanceLY": 17000000,
+    "Messier": "M64",
+    "NGC": "NGC 4826"
+  },
+  {
+    "Rank": 1,
+    "Target": "Leo Triplet - M66",
+    "CardinalDirection": "South",
+    "GeneralDirection": "Southwest",
+    "Constellation": "Leo",
+    "DistanceLY": 36000000,
+    "Messier": "M66",
+    "NGC": "NGC 3627"
+  }
+]
+    </pre>
+    
+    <footer class="footer">
+        <span id="copyright"></span>
+    </footer>
+
+    <script src="target_viewing_jsonddl.js"></script>
+    <script src="target_viewings.js"></script>
+
+    <script>setCopyright();</script>
+
+     <script>
+
+async function loadResourcesWhereTo() {
+    const dropdown = document.getElementById('resourceDropdown');
+
+    try {
+        const response = await fetch('./other_resources.json');
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const resources = await response.json();
+
+        resources.sort((a, b) =>
+            a.title.localeCompare(b.title)
+        );
+
+        dropdown.innerHTML =
+            '<option value="">-- Select a destination --</option>';
+
+        resources.forEach(resource => {
+            const option = document.createElement('option');
+            option.value = resource.url;
+            option.textContent = resource.title;
+            dropdown.appendChild(option);
+        });
+
+    } catch (error) {
+        dropdown.innerHTML =
+            '<option value="">Unable to load resources</option>';
+    }
+}
+
+document.getElementById('resourceDropdown')
+    .addEventListener('change', function() {
+
+        const url = this.value;
+
+        if (url) {
+            window.location.href = url;
+        }
+    });
+loadResourcesWhereTo();
+</script>
+
+</body>
+</html>

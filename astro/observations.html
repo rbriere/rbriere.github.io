@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <title>Observations</title>
+    <link rel="stylesheet" href="astro_rab_styles.css?version=1.0.0">
+    <script src="astro_rab_scripts.js?version=1.0.0" defer></script>
+    <script src="astro_rab_scripts_where2.js" defer></script>
+</head>
+<body class="cobalt-body" onload="initObservationsPage()">
+    <div class="where-to-container">
+    <select id="resourceDropdown" class="where-to-dropdown">
+        <option value="">-- Select a destination --</option>
+    </select>
+    </div>
+    <header class="cobalt-header">
+        <h1>Observations</h1>
+    </header>
+
+    <section class="controls">
+        <div class="control-group">
+            <span class="control-label">Sort by:</span>
+            <label><input type="radio" name="sort" value="date_desc" checked> Date (current → past)</label>
+            <label><input type="radio" name="sort" value="date_asc"> Date (past → current)</label>
+            <label><input type="radio" name="sort" value="name"> Name</label>
+        </div>
+
+        <div class="control-group">
+            <span class="control-label">Filter:</span>
+            <input type="text" id="filterText" placeholder="Type to filter...">
+            <label><input type="radio" name="filterField" value="description_short" checked> Description</label>
+            <label><input type="radio" name="filterField" value="observation_location"> Location</label>
+            <label><input type="radio" name="filterField" value="observation_date"> Date</label>
+        </div>
+    </section>
+
+    <main id="grid" class="grid-container">
+        <!-- Thumbnails injected by scripts.js -->
+    </main>
+
+    <footer class="cobalt-footer">
+        <span id="copyright"></span>
+    </footer>
+
+    <script>
+
+async function loadResourcesWhereTo() {
+    const dropdown = document.getElementById('resourceDropdown');
+
+    try {
+        const response = await fetch('./other_resources.json');
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const resources = await response.json();
+
+        resources.sort((a, b) =>
+            a.title.localeCompare(b.title)
+        );
+
+        dropdown.innerHTML =
+            '<option value="">-- Select a destination --</option>';
+
+        resources.forEach(resource => {
+            const option = document.createElement('option');
+            option.value = resource.url;
+            option.textContent = resource.title;
+            dropdown.appendChild(option);
+        });
+
+    } catch (error) {
+        dropdown.innerHTML =
+            '<option value="">Unable to load resources</option>';
+    }
+}
+
+document.getElementById('resourceDropdown')
+    .addEventListener('change', function() {
+
+        const url = this.value;
+
+        if (url) {
+            window.location.href = url;
+        }
+    });
+loadResourcesWhereTo();
+</script>
+</body>
+</html>
