@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Cache-Control" content="no-cache">
     <script src="astro_rab_scripts.js?version=1.0.0" defer></script>
-<title>Siril Post Processing Helper</title>
+<title>Clear Sky Chart - TV</title>
 
 <style>
     :root {
@@ -151,14 +151,19 @@ button {
     color: #ffffff;
 }
 
-
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 
 </style>
 </head>
 <body>
 
     <header class="cobalt-header">
-        <h1>Siril Post Processing Helper</h1>
+        <h1>Clear Sky Chart - TV</h1>
     </header>
 
     <div class="where-to-container">
@@ -167,23 +172,14 @@ button {
     </select>
     </div>
 
-
-    <p></p>
+<p></p>
+<p></p>
 <div class="bodytext">
-This MacOS shell script will create a new folder for your Siril processing with the required four sub folders, as well as a script to assist with copying the *.fit files to the ./lights folder.  
-<p></p>
-You will have previously saved the script, made it executable, and modified the hard coded folders listed under the 'Variables' section to correspond to where you have your folders located.
-<p></p>
-Variable 'destinationfolder' must be the fully qualified folder where you will be copying the original *.fit files, and where you will be initializing Siril to point to.
-<p></p>
-Variable 'fitsourcefolder' must be the fully qualified folder when you keep the original files copied from your astro camera.
-<p></p>
-Note: to change the saved version of this script to be executable, from a terminal prompt, run:
-chmod +x “whateverYouNamedTheScriptTo.sh"
-(You should save the script with the .sh extension)
-<p></p>
+    <div class="center">
+    <img src="https://www.cleardarksky.com/c/KrsObFLcsk.gif?c=1512058" />
+    </div>
 </div>
-<pre2 id="programDisplay" class="pre2">File not loaded.</pre2>
+<p></p>
 
     <footer class="cobalt-footer">
         <span id="copyright"></span>
@@ -200,7 +196,7 @@ async function loadProgram() {
     const display = document.getElementById('programDisplay');
 
     try {
-        const response = await fetch('./astropostprocess.txt');
+        const response = await fetch('./sirilprogramhelper.c');
 
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);

@@ -168,20 +168,10 @@ button {
     </div>
 
 
-    <p></p>
 <div class="bodytext">
-This MacOS shell script will create a new folder for your Siril processing with the required four sub folders, as well as a script to assist with copying the *.fit files to the ./lights folder.  
-<p></p>
-You will have previously saved the script, made it executable, and modified the hard coded folders listed under the 'Variables' section to correspond to where you have your folders located.
-<p></p>
-Variable 'destinationfolder' must be the fully qualified folder where you will be copying the original *.fit files, and where you will be initializing Siril to point to.
-<p></p>
-Variable 'fitsourcefolder' must be the fully qualified folder when you keep the original files copied from your astro camera.
-<p></p>
-Note: to change the saved version of this script to be executable, from a terminal prompt, run:
-chmod +x “whateverYouNamedTheScriptTo.sh"
-(You should save the script with the .sh extension)
-<p></p>
+This C program will create a new folder for your Siril processing with the required four sub folders, as well as a script to assist with copying the *.fit files to the ./lights folder.  
+<p></p>Notes on compilation and usage are included in the top portion of the source code.
+
 </div>
 <pre2 id="programDisplay" class="pre2">File not loaded.</pre2>
 
@@ -200,7 +190,7 @@ async function loadProgram() {
     const display = document.getElementById('programDisplay');
 
     try {
-        const response = await fetch('./astropostprocess.txt');
+        const response = await fetch('./sirilprogramhelper.c');
 
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);

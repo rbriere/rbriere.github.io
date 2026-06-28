@@ -1,0 +1,76 @@
+#!/bin/zsh
+#
+# astropostprocess.sh
+#
+# Usage:
+#   ./astropostprocess.sh <foldername>
+#
+
+set -euo pipefail
+
+#------------------------------------------------------------------------------
+# Validate parameter
+#------------------------------------------------------------------------------
+if [[ $# -ne 1 ]]; then
+    echo "Usage: $0 <foldername>"
+    exit 1
+fi
+
+# Remove spaces
+foldername="${1// /}"
+
+# Verify only alphanumeric characters remain
+if [[ ! "$foldername" =~ ^[A-Za-z0-9]+$ ]]; then
+    echo "Error: Folder name must contain only letters and numbers (spaces are removed automatically)."
+    exit 1
+fi
+
+#------------------------------------------------------------------------------
+# Variables
+#------------------------------------------------------------------------------
+destinationfolder="/your/fully/qualified/Siril/processing/folder/${foldername}"
+fitsourcefolder="/your/fully/qualified/astrophotography/image/source/folder/${foldername}_sub"
+
+
+#------------------------------------------------------------------------------
+# Create destination folders
+#------------------------------------------------------------------------------
+mkdir -p "${destinationfolder}"/{darks,biases,flats,lights}
+
+echo "Created:"
+echo "  ${destinationfolder}"
+echo "  darks"
+echo "  biases"
+echo "  flats"
+echo "  lights"
+
+#------------------------------------------------------------------------------
+# Create copyFitfiles.sh
+#------------------------------------------------------------------------------
+cat > "${destinationfolder}/copyFitfiles.sh" <<EOF
+#!/bin/zsh
+
+set -euo pipefail
+
+fitsourcefolder="${fitsourcefolder}"
+destinationfolder="${destinationfolder}/lights"
+
+if [[ ! -d "\${fitsourcefolder}" ]]; then
+    echo "Source folder does not exist: \${fitsourcefolder}"
+    exit 1
+fi
+
+mkdir -p "\${destinationfolder}"
+
+find "\${fitsourcefolder}" -maxdepth 1 -type f -name "*.fit" -exec cp {} "\${destinationfolder}/" \;
+
+echo "FIT file copy complete."
+EOF
+
+#------------------------------------------------------------------------------
+# Make helper script executable
+#------------------------------------------------------------------------------
+chmod +x "${destinationfolder}/copyFitfiles.sh"
+
+echo "Created executable:"
+echo "  ${destinationfolder}/copyFitfiles.sh"

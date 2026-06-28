@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Astrophotography Viewing List</title>
 
-    <link rel="stylesheet" href="astro_rab_styles.css?version=1.0.0">
-     <script src="astro_rab_scripts_where2.js?version=1.0.0" defer></script>
+    <link rel="stylesheet" href="astro_rab_styles.css?version=1.0.1">
+     <script src="astro_rab_scripts_where2.js?version=1.0.1" defer></script>
      <style>
 
         pre2 {
@@ -85,6 +85,7 @@
                         <th>General Direction</th>
                         <th>Constellation</th>
                         <th>Distance (Million LY)</th>
+                        <th>Approx Altitude</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -99,13 +100,17 @@ Use an AI prompt such as listed below to create, and then save a JSON file that 
 
 Be sure to change the date, viewing location, and your equipment.
 
+Note:  I've had better luck with ChatGPT providing an answer with the prompt provided.  Copilot seems to want some additional clarifications.  Of course, your mileage may vary.
+
 Prompt:
-List the 5 best galaxies, in each general direction (North, East, West, South) that are large and produce very photogenic 
-astrophotography photos that are visible from 9pm to 2am on 6/14/2026 from Fruitland Park, FL that are above the horizon so 
-they won't be blocked by houses and trees.  I'll be using a Seestar S30 Pro camera with an equatorial mount.
+
+List the 5 best bright galaxies visible, in each general direction (North, East, West, South) that are large and produce very photogenic 
+astrophotography photos that are visible from 9pm to 2am on 6/22/2026 from Fruitland Park, FL that are above 
+25 degrees in altitude.  I'll be using a Seestar S30 Pro camera with an equatorial mount.
 
 Include the cardinal direction, the general direction of each target, the constellation, the approximate distance, and the 
-Messier designation (if one), and the NGC designation.
+Messier designation (if one), the altitude, and the NGC designation.
+
 
 Produce the result in one JSON file that contains a 'Rank' for each cardinal direction in the order of best target first.  No images are necessary. 
 
@@ -118,6 +123,7 @@ The JSON file should be a collection of entities like:
     "Constellation": "Ursa Major",
     "DistanceLY": 12000000,
     "Messier": "M81",
+    "Altitude": "23 degrees",
     "NGC": "NGC 3031"
 }
 Produce the list without any sub entities like '"South":'
@@ -125,57 +131,64 @@ Produce the list without any sub entities like '"South":'
 Example results (reduced set of targets, you do not have to 
 supply this when making the prompt):
 [
-  {
-    "Rank": 1,
-    "Target": "Bode's Galaxy",
-    "CardinalDirection": "North",
-    "GeneralDirection": "North-Northwest",
-    "Constellation": "Ursa Major",
-    "DistanceLY": 12000000,
-    "Messier": "M81",
-    "NGC": "NGC 3031"
-  },
-  {
-    "Rank": 2,
-    "Target": "Cigar Galaxy",
-    "CardinalDirection": "North",
-    "GeneralDirection": "North-Northwest",
-    "Constellation": "Ursa Major",
-    "DistanceLY": 12000000,
-    "Messier": "M82",
-    "NGC": "NGC 3034"
-  },
-  {
-    "Rank": 1,
-    "Target": "Andromeda Galaxy",
-    "CardinalDirection": "East",
-    "GeneralDirection": "Northeast",
-    "Constellation": "Andromeda",
-    "DistanceLY": 2537000,
-    "Messier": "M31",
-    "NGC": "NGC 224"
-  },
-  {
-    "Rank": 1,
-    "Target": "Black Eye Galaxy",
-    "CardinalDirection": "West",
-    "GeneralDirection": "West",
-    "Constellation": "Coma Berenices",
-    "DistanceLY": 17000000,
-    "Messier": "M64",
-    "NGC": "NGC 4826"
-  },
-  {
-    "Rank": 1,
-    "Target": "Leo Triplet - M66",
-    "CardinalDirection": "South",
-    "GeneralDirection": "Southwest",
-    "Constellation": "Leo",
-    "DistanceLY": 36000000,
-    "Messier": "M66",
-    "NGC": "NGC 3627"
-  }
+{
+"Rank": 1,
+"Target": "Bode's Galaxy",
+"CardinalDirection": "North",
+"GeneralDirection": "North-Northwest",
+"Constellation": "Ursa Major",
+"DistanceLY": 12000000,
+"Messier": "M81",
+"Altitude": "48 degrees",
+"NGC": "NGC 3031"
+},
+{
+"Rank": 2,
+"Target": "Cigar Galaxy",
+"CardinalDirection": "North",
+"GeneralDirection": "North-Northwest",
+"Constellation": "Ursa Major",
+"DistanceLY": 12000000,
+"Messier": "",
+"Altitude": "49 degrees",
+"NGC": "NGC 3034"
+},
+{
+"Rank": 2,
+"Target": "Triangulum Galaxy",
+"CardinalDirection": "East",
+"GeneralDirection": "East-Northeast",
+"Constellation": "Triangulum",
+"DistanceLY": 2730000,
+"Messier": "M33",
+"Altitude": "51 degrees",
+"NGC": "NGC 598"
+},
+{
+"Rank": 1,
+"Target": "Black Eye Galaxy",
+"CardinalDirection": "West",
+"GeneralDirection": "West-Northwest",
+"Constellation": "Coma Berenices",
+"DistanceLY": 17000000,
+"Messier": "M64",
+"Altitude": "69 degrees",
+"NGC": "NGC 4826"
+},
+{
+"Rank": 1,
+"Target": "Sombrero Galaxy",
+"CardinalDirection": "South",
+"GeneralDirection": "Southwest",
+"Constellation": "Virgo",
+"DistanceLY": 29000000,
+"Messier": "M104",
+"Altitude": "39 degrees",
+"NGC": "NGC 4594"
+}
 ]
+
+
     </pre>
     
     <footer class="footer">

@@ -7,6 +7,7 @@ class ViewingTarget {
         this.Constellation = data.Constellation;
         this.DistanceLY = data.DistanceLY;
         this.Messier = data.Messier;
+        this.Altitude = data.Altitude;
         this.NGC = data.NGC;
     }
 

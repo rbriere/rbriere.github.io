@@ -133,6 +133,7 @@ function renderGrid() {
             <td>${item.GeneralDirection}</td>
             <td>${item.Constellation}</td>
             <td>${item.getDistanceMillions()}</td>
+            <td>${item.Altitude}</td>
         `;
 
         tbody.appendChild(tr);
