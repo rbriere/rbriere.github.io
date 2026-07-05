@@ -80,7 +80,6 @@ function renderGrid(observations) {
         item.appendChild(img);
         item.appendChild(caption);
         grid.appendChild(item);
-        document.write("<br>" + img.src );
     });
 }
 
