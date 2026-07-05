@@ -49,7 +49,7 @@
   },
   {
     "description_short": "M101 - The Pinwheel Galaxy",
-    "description_full": "The Pinwheel Galaxy (also known as Messier 101, M101 or NGC 5457) is a face-on, counterclockwise intermediate spiral galaxy located 21 million light-years (6.4 megaparsecs) from Earth in the constellation Ursa Major.",
+    "description_full": "The Pinwheel Galaxy (also known as Messier 101, M101 or NGC 5457) is a face-on, counterclockwise intermediate spiral galaxy located 21 million light-years (6.4 megaparsecs) from Earth in the constellation Ursa Major.  It has a diameter of 252,000 light-years (the Milky Way has a diameter of 87,400 light-years). M101 has around a trillion stars.",
     "thumbnail_image": "20260608_m101_tn.jpg",
     "actual_image": "20260608_m101.jpg",
     "observation_date": "20260608",
@@ -58,9 +58,9 @@
   {
     "description_short": "M51 - The Whirlpool Galaxy",
     "description_full": "The Whirlpool Galaxy (also known as Messier 51 or NGC 5194) is an interacting grand-design spiral galaxy with a Seyfert 2 active galactic nucleus. It lies in the constellation Canes Venatici, and is 31 million light-years (9.5 megaparsecs/Mpc) away and 23.58 kiloparsecs (76,900 ly) in diameter.",
-    "thumbnail_image": "20260623_m051_tn.jpg",
-    "actual_image": "20260623_m051.jpg",
-    "observation_date": "20260623",
+    "thumbnail_image": "20260702_m051_tn.png",
+    "actual_image": "20260702_m051.png",
+    "observation_date": "20260702",
     "observation_location": "The Villages"
   }
 ]
