@@ -37,9 +37,24 @@
 <div id="tableContainer"></div>
 <label style="visibility: hidden;" id="sizeofevents"></label>
 <label style="visibility: hidden;" id="alltimekeys"></label>
-<div class="footer copyright"></div>
+<!-- <div class="footer copyright"></div> -->
+
+<footer class="cobalt-footer">
+    <span id="copyright"></span>
+</footer>
 
 <script>
+
+     const el = document.getElementById("copyright");
+    var x = document.lastModified;
+    // const lm = document.getElementById("lastmodified");
+
+    if (el) {
+        // el.textContent = `© ${new Date().getFullYear()} RAB`;
+        el.textContent =  `© ${new Date().getFullYear()} RAB`.concat(" :: Source Last Modified ".concat(new Date(document.lastModified).toLocaleString()));
+
+    }
+    
 // Initialize defaults
 const startTime = document.getElementById("startTime");
 const interval = document.getElementById("interval");
@@ -368,13 +383,13 @@ function copyViewing() {
         .then(() => alert("Viewings copied!"));
 }
 
-function setCopyright() {
-    document.querySelectorAll('.copyright')
-    .forEach(el => el.innerHTML =
-    `© ${new Date().getFullYear()} RAB`
-    // `© ${new Date().getFullYear()} The Villages Astronomy Club`
-        );
-}
+// function setCopyright() {
+//     document.querySelectorAll('.copyright')
+//     .forEach(el => el.innerHTML =
+//     `© ${new Date().getFullYear()} RAB`
+//     // `© ${new Date().getFullYear()} The Villages Astronomy Club`
+//         );
+// }
 
 
 async function loadResourcesWhereTo() {
@@ -445,7 +460,7 @@ document.addEventListener('DOMContentLoaded', setCopyright);
 </script>
 
 <script>
-
+ setCopyright();
 </script>
 </body>
 </html>

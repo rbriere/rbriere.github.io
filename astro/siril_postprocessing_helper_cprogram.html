@@ -181,10 +181,10 @@ This C program will create a new folder for your Siril processing with the requi
 
 <script>
     
-    const el = document.getElementById("copyright");
-    if (el) {
-        el.textContent = `© ${new Date().getFullYear()} RAB`;
-    }
+    // const el = document.getElementById("copyright");
+    // if (el) {
+    //     el.textContent = `© ${new Date().getFullYear()} RAB2`;
+    // }
 
 async function loadProgram() {
     const display = document.getElementById('programDisplay');
@@ -259,6 +259,16 @@ loadResourcesWhereTo();
     // if (el) {
     //     el.textContent = `© ${new Date().getFullYear()} RAB22`;
     // }
+
+        const el = document.getElementById("copyright");
+    var x = document.lastModified;
+    // const lm = document.getElementById("lastmodified");
+
+    if (el) {
+        // el.textContent = `© ${new Date().getFullYear()} RAB`;
+        el.textContent =  `© ${new Date().getFullYear()} RAB`.concat(" :: Source Last Modified ".concat(new Date(document.lastModified).toLocaleString()));
+
+    }
 
 </script>
 

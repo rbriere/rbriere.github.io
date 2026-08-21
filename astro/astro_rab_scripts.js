@@ -21,10 +21,30 @@ function getQueryParam(name) {
 // Utility: copyright
 function setCopyright() {
     const el = document.getElementById("copyright");
+    var x = document.lastModified;
+    // const lm = document.getElementById("lastmodified");
+
     if (el) {
-        el.textContent = `© ${new Date().getFullYear()} RAB`;
+        // el.textContent = `© ${new Date().getFullYear()} RAB`;
+        el.textContent =  `© ${new Date().getFullYear()} RAB`.concat(" :: Source Last Modified ".concat(new Date(document.lastModified).toLocaleString()));
+
     }
 }
+
+// function setLastModified() {
+//     var x = document.lastModified;
+//     const lm = document.getElementById("lastmodified");
+//       lm.textContent = " :: Source Last Modified ".concat(new Date(document.lastModified).toLocaleString());
+
+// }
+
+// function setLastModified2(document) {
+//     var x = document.lastModified;
+//     const lm = document.getElementById("lastmodified");
+//       lm.textContent = " :: bSource Last Modified ".concat(new Date(document.lastModified).toLocaleString());
+
+// }
+
 
 // Sorting
 function sortObservations(observations, mode) {

@@ -193,10 +193,11 @@ Note: you may have to edit the 'copyFitfiles.sh' script that is created to make 
 
 <script>
     
-    const el = document.getElementById("copyright");
-    if (el) {
-        el.textContent = `© ${new Date().getFullYear()} RAB`;
-    }
+    // 
+    // const el = document.getElementById("copyright");
+    // if (el) {
+    //     el.textContent = `© ${new Date().getFullYear()} RAB`;
+    // }
 
 async function loadProgram() {
     const display = document.getElementById('programDisplay');
@@ -266,7 +267,15 @@ document.getElementById('resourceDropdown')
         }
     });
 loadResourcesWhereTo();
+ const el = document.getElementById("copyright");
+    var x = document.lastModified;
+    // const lm = document.getElementById("lastmodified");
 
+    if (el) {
+        // el.textContent = `© ${new Date().getFullYear()} RAB`;
+        el.textContent =  `© ${new Date().getFullYear()} RAB`.concat(" :: Source Last Modified ".concat(new Date(document.lastModified).toLocaleString()));
+
+    }
     // const el = document.getElementById("copyright");
     // if (el) {
     //     el.textContent = `© ${new Date().getFullYear()} RAB22`;

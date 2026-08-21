@@ -201,6 +201,7 @@ const img = `<img src="https://www.cleardarksky.com/c/KrsObFLcsk.gif?v=${timesta
 
     <footer class="cobalt-footer">
         <span id="copyright"></span>
+        <span id="lastmodified"></span>
     </footer>
 
 <script>
@@ -209,6 +210,10 @@ const img = `<img src="https://www.cleardarksky.com/c/KrsObFLcsk.gif?v=${timesta
     if (el) {
         el.textContent = `© ${new Date().getFullYear()} RAB`;
     }
+
+    var x = document.lastModified;
+    const lm = document.getElementById("lastmodified");
+    lm.textContent = " :: Source Last Modified ".concat(new Date(document.lastModified).toLocaleString());
 
 async function loadProgram() {
     const display = document.getElementById('programDisplay');
