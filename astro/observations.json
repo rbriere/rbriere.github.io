@@ -72,27 +72,19 @@
     "observation_location": "The Villages"
   },
   {
-    "description_short": "North America Nebula (NGC 7000)",
-    "description_full": "The North America Nebula (NGC 7000) is a large emission nebula in the constellation Cygnus that resembles the continent of North America in shape. It lies about 2,590 light-years from Earth and has an apparent magnitude of 4. (Image before post processing)",
-    "thumbnail_image": "20260715_ngc7000_a_tn.jpg",
-    "actual_image": "20260715_ngc7000_a.jpg",
-    "observation_date": "20260715",
-    "observation_location": "The Villages"
-  },
-  {
-    "description_short": "Andromeda Galaxy (M 31)",
-    "description_full": "The Andromeda Galaxy (M 31) is a barred spiral galaxy and is the nearest major galaxy to the Milky Way. It was originally named the Andromeda Nebula and is cataloged as Messier 31, M31, and NGC 224. It is approximately 2.5 million light-years from Earth. (Image before post processing)",
-    "thumbnail_image": "20261013_m031_a_raw_tn.png",
-    "actual_image": "20261013_m031_a_raw.png",
-    "observation_date": "20261013",
-    "observation_location": "The Villages"
-  },
-  {
     "description_short": "Andromeda Galaxy (M 31)",
     "description_full": "The Andromeda Galaxy (M 31) is a barred spiral galaxy and is the nearest major galaxy to the Milky Way. It was originally named the Andromeda Nebula and is cataloged as Messier 31, M31, and NGC 224. It is approximately 2.5 million light-years from Earth. (Image after post processing/AI colorization)",
     "thumbnail_image": "20261013_m031_b_aicolor_tn.png",
     "actual_image": "20261013_m031_b_aicolor.png",
     "observation_date": "20261013",
+    "observation_location": "The Villages"
+  },
+  {
+    "description_short": "M27 - The Dumbbell Nebula",
+    "description_full": "The Dumbbell Nebula (also known as the Apple Core Nebula, Messier 27, and NGC 6853) is a planetary nebula (nebulosity surrounding a white dwarf) in the constellation Vulpecula, at a distance of about 1360 light-years.",
+    "thumbnail_image": "20261017_m027_dumbbellnebula_tn.png",
+    "actual_image": "20261017_m027_dumbbellnebula.png",
+    "observation_date": "20261017",
     "observation_location": "The Villages"
   }
 ]
